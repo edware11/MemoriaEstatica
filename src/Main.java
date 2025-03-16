@@ -89,3 +89,43 @@ class GestorEmpleados {
             return opcion;
         }
 }
+// Método para ejecutar la opción seleccionada
+    private static void ejecutarOpcion(int opcion) {
+        switch (opcion) {
+            case 1:
+                agregarEmpleado();
+                break;
+            case 2:
+                gestor.mostrarEmpleados();
+                break;
+            case 3:
+                System.out.println("Saliendo del sistema...");
+                break;
+        }
+    }
+
+    // Método para agregar un empleado con validación de entrada
+    private static void agregarEmpleado() {
+        System.out.print("Ingrese el nombre del empleado: ");
+        scanner.nextLine(); // Limpiar buffer
+        String nombre = scanner.nextLine();
+
+        double salario = 0;
+        while (true) {
+            try {
+                System.out.print("Ingrese el salario del empleado: ");
+                salario = scanner.nextDouble();
+                if (salario < 0) {
+                    throw new IllegalArgumentException("El salario no puede ser negativo.");
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un número válido.");
+                scanner.next();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+        gestor.agregarEmpleado(nombre, salario);
+    }
+}
