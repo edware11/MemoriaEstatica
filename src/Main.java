@@ -48,4 +48,44 @@ class GestorEmpleados {
             }
         }
     }
+
+    // Clase principal que maneja la interacción con el usuario
+    class AplicacionEmpleados {
+        private static Scanner scanner = new Scanner(System.in);
+        private static GestorEmpleados gestor = new GestorEmpleados();
+
+        public static void main(String[] args) {
+            int opcion;
+            do {
+                mostrarMenu();
+                opcion = leerOpcion();
+                ejecutarOpcion(opcion);
+            } while (opcion != 3);
+        }
+
+        // Método para mostrar el menú
+        private static void mostrarMenu() {
+            System.out.println("\n--- Menú de Gestión de Empleados ---");
+            System.out.println("1. Agregar empleado");
+            System.out.println("2. Mostrar empleados");
+            System.out.println("3. Salir");
+            System.out.print("Seleccione una opción: ");
+        }
+
+        // Método para leer la opción del usuario con validación de entrada
+        private static int leerOpcion() {
+            int opcion = -1;
+            try {
+                opcion = scanner.nextInt();
+                if (opcion < 1 || opcion > 3) {
+                    System.out.println("Opción inválida. Intente de nuevo.");
+                    return leerOpcion();
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un número válido.");
+                scanner.next(); // Limpiar el buffer
+                return leerOpcion();
+            }
+            return opcion;
+        }
 }
